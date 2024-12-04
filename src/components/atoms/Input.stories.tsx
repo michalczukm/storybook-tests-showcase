@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Input } from './Input';
-import { userEvent, within, expect } from '@storybook/test';
+import { userEvent, within, expect, fn } from '@storybook/test';
 
 const meta = {
   title: 'Atoms/Input',
@@ -26,6 +26,7 @@ export const Text: Story = {
     placeholder: 'Enter text...',
     value: '',
     label: 'Text Input',
+    onChange: fn(),
   },
 };
 
@@ -35,6 +36,7 @@ export const Password: Story = {
     placeholder: 'Enter password...',
     value: '',
     label: 'Password',
+    onChange: fn(),
   },
 };
 
@@ -45,6 +47,7 @@ export const WithError: Story = {
     value: 'invalid-email',
     label: 'Email',
     error: 'Please enter a valid email address',
+    onChange: fn(),
   },
 };
 
@@ -54,6 +57,7 @@ export const WithInteraction: Story = {
     placeholder: 'Type something...',
     value: '',
     label: 'Interactive Input',
+    onChange: fn(),
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -73,5 +77,6 @@ export const NumberInput: Story = {
     placeholder: 'Enter amount...',
     value: '',
     label: 'Amount',
+    onChange: fn(),
   },
 }; 
