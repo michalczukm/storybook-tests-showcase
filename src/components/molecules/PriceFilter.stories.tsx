@@ -1,14 +1,14 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { PriceFilter } from './PriceFilter';
-import { userEvent, within, expect, fn } from '@storybook/test';
+import type { Meta, StoryObj } from "@storybook/react";
+import { expect, fn, userEvent, within } from "@storybook/test";
+import { PriceFilter } from "./PriceFilter";
 
 const meta = {
-  title: 'Molecules/PriceFilter',
+  title: "Molecules/PriceFilter",
   component: PriceFilter,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 } satisfies Meta<typeof PriceFilter>;
 
 export default meta;
@@ -16,8 +16,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    minPrice: '',
-    maxPrice: '',
+    minPrice: "",
+    maxPrice: "",
     onMinChange: fn(),
     onMaxChange: fn(),
     onApply: fn(),
@@ -27,8 +27,8 @@ export const Default: Story = {
 
 export const WithValues: Story = {
   args: {
-    minPrice: '10',
-    maxPrice: '100',
+    minPrice: "10",
+    maxPrice: "100",
     onMinChange: fn(),
     onMaxChange: fn(),
     onApply: fn(),
@@ -38,8 +38,8 @@ export const WithValues: Story = {
 
 export const WithInteractions: Story = {
   args: {
-    minPrice: '',
-    maxPrice: '',
+    minPrice: "",
+    maxPrice: "",
     onMinChange: fn(),
     onMaxChange: fn(),
     onApply: fn(),
@@ -47,17 +47,17 @@ export const WithInteractions: Story = {
   },
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
-    const [minInput, maxInput] = canvas.getAllByRole('spinbutton');
-    const applyButton = canvas.getByText('Apply');
-    const resetButton = canvas.getByText('Reset');
+    const [minInput, maxInput] = canvas.getAllByRole("spinbutton");
+    const applyButton = canvas.getByText("Apply");
+    const resetButton = canvas.getByText("Reset");
 
     // Test min price input
-    await userEvent.type(minInput, '10');
-    await expect(args.onMinChange).toHaveBeenCalledWith('10');
+    await userEvent.type(minInput, "10");
+    await expect(args.onMinChange).toHaveBeenCalledWith("10");
 
     // Test max price input
-    await userEvent.type(maxInput, '100');
-    await expect(args.onMaxChange).toHaveBeenCalledWith('100');
+    await userEvent.type(maxInput, "100");
+    await expect(args.onMaxChange).toHaveBeenCalledWith("100");
 
     // Test apply filter
     await userEvent.click(applyButton);
@@ -67,4 +67,4 @@ export const WithInteractions: Story = {
     await userEvent.click(resetButton);
     await expect(args.onReset).toHaveBeenCalled();
   },
-}; 
+};

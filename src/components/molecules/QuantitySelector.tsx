@@ -1,5 +1,5 @@
-import React from 'react';
-import { Button } from '../atoms/Button';
+import type React from "react";
+import { Button } from "../atoms/Button";
 
 interface QuantitySelectorProps {
   value: number;
@@ -13,8 +13,8 @@ export const QuantitySelector: React.FC<QuantitySelectorProps> = ({
   value,
   onChange,
   min = 0,
-  max = Infinity,
-  disabled = false
+  max = Number.POSITIVE_INFINITY,
+  disabled = false,
 }) => {
   const handleDecrease = () => {
     if (value > min) {
@@ -29,7 +29,7 @@ export const QuantitySelector: React.FC<QuantitySelectorProps> = ({
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = parseInt(e.target.value, 10);
+    const newValue = Number.parseInt(e.target.value, 10);
     if (!isNaN(newValue) && newValue >= min && newValue <= max) {
       onChange(newValue);
     }
@@ -45,7 +45,7 @@ export const QuantitySelector: React.FC<QuantitySelectorProps> = ({
       >
         -
       </Button>
-      
+
       <input
         type="number"
         value={value}
@@ -55,7 +55,7 @@ export const QuantitySelector: React.FC<QuantitySelectorProps> = ({
         min={min}
         max={max}
       />
-      
+
       <Button
         variant="secondary"
         size="sm"
@@ -66,4 +66,4 @@ export const QuantitySelector: React.FC<QuantitySelectorProps> = ({
       </Button>
     </div>
   );
-}; 
+};

@@ -1,25 +1,25 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { Button } from './Button';
-import { userEvent, within, expect } from '@storybook/test';
+import type { Meta, StoryObj } from "@storybook/react";
+import { Button } from "./Button";
+import { userEvent, within, expect } from "@storybook/test";
 
 const meta = {
-  title: 'Atoms/Button',
+  title: "Atoms/Button",
   component: Button,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     variant: {
-      control: 'select',
-      options: ['primary', 'secondary', 'danger'],
+      control: "select",
+      options: ["primary", "secondary", "danger"],
     },
     size: {
-      control: 'select',
-      options: ['sm', 'md', 'lg'],
+      control: "select",
+      options: ["sm", "md", "lg"],
     },
     disabled: {
-      control: 'boolean',
+      control: "boolean",
     },
   },
 } satisfies Meta<typeof Button>;
@@ -29,55 +29,55 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    variant: 'primary',
-    children: 'Primary Button',
+    variant: "primary",
+    children: "Primary Button",
   },
 };
 
 export const Secondary: Story = {
   args: {
-    variant: 'secondary',
-    children: 'Secondary Button',
+    variant: "secondary",
+    children: "Secondary Button",
   },
 };
 
 export const Danger: Story = {
   args: {
-    variant: 'danger',
-    children: 'Danger Button',
+    variant: "danger",
+    children: "Danger Button",
   },
 };
 
 export const Small: Story = {
   args: {
-    size: 'sm',
-    children: 'Small Button',
+    size: "sm",
+    children: "Small Button",
   },
 };
 
 export const Large: Story = {
   args: {
-    size: 'lg',
-    children: 'Large Button',
+    size: "lg",
+    children: "Large Button",
   },
 };
 
 export const Disabled: Story = {
   args: {
     disabled: true,
-    children: 'Disabled Button',
+    children: "Disabled Button",
   },
 };
 
 export const WithClick: Story = {
   args: {
-    children: 'Click Me',
+    children: "Click Me",
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = canvas.getByRole('button');
-    
+    const button = canvas.getByRole("button");
+
     await userEvent.click(button);
     await expect(button).toHaveFocus();
   },
-}; 
+};

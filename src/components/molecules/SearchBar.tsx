@@ -1,6 +1,6 @@
-import React from 'react';
-import { Input } from '../atoms/Input';
-import { Button } from '../atoms/Button';
+import type React from "react";
+import { Button } from "../atoms/Button";
+import { Input } from "../atoms/Input";
 
 interface SearchBarProps {
   value: string;
@@ -13,7 +13,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   value,
   onChange,
   onSearch,
-  placeholder = 'Search products...',
+  placeholder = "Search products...",
 }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,16 +21,16 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   };
 
   return (
-    <form onSubmit={handleSubmit} className='flex gap-2'>
-      <div className='flex-1'>
+    <form onSubmit={handleSubmit} className="flex gap-2">
+      <div className="flex-1">
         <Input
-          type='text'
+          type="text"
           value={value}
           onChange={onChange}
           placeholder={placeholder}
         />
       </div>
-      <Button type='submit' variant='primary'>
+      <Button type="submit" variant="primary">
         Search
       </Button>
     </form>

@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from "react";
 
 interface RatingProps {
   value: number;
@@ -9,7 +9,7 @@ interface RatingProps {
 export const Rating: React.FC<RatingProps> = ({
   value,
   onChange,
-  readonly = false
+  readonly = false,
 }) => {
   return (
     <div className="flex gap-1">
@@ -18,11 +18,11 @@ export const Rating: React.FC<RatingProps> = ({
           key={star}
           onClick={() => !readonly && onChange?.(star)}
           disabled={readonly}
-          className={`${readonly ? 'cursor-default' : 'cursor-pointer'}`}
+          className={`${readonly ? "cursor-default" : "cursor-pointer"}`}
         >
           <svg
             className={`w-5 h-5 ${
-              star <= value ? 'text-yellow-400' : 'text-gray-300'
+              star <= value ? "text-yellow-400" : "text-gray-300"
             }`}
             fill="currentColor"
             viewBox="0 0 20 20"
@@ -33,4 +33,4 @@ export const Rating: React.FC<RatingProps> = ({
       ))}
     </div>
   );
-}; 
+};

@@ -27,7 +27,7 @@ export const mockProducts: Product[] = [
     description: "RGB mechanical keyboard with Cherry MX switches",
     image: "https://placeholder.com/150",
     stock: 10,
-    rating: 4.5
+    rating: 4.5,
   },
   {
     id: "2",
@@ -36,7 +36,7 @@ export const mockProducts: Product[] = [
     description: "High-DPI gaming mouse with programmable buttons",
     image: "https://placeholder.com/150",
     stock: 15,
-    rating: 4.8
+    rating: 4.8,
   },
   // Add more mock products...
 ];
@@ -45,5 +45,5 @@ export const mockUser: User = {
   id: "u1",
   name: "John Doe",
   email: "john@example.com",
-  avatar: "https://placeholder.com/50"
-}; 
+  avatar: "https://placeholder.com/50",
+};

@@ -1,20 +1,20 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { Rating } from './Rating';
-import { userEvent, within, expect } from '@storybook/test';
+import type { Meta, StoryObj } from "@storybook/react";
+import { expect, userEvent, within } from "@storybook/test";
+import { Rating } from "./Rating";
 
 const meta = {
-  title: 'Atoms/Rating',
+  title: "Atoms/Rating",
   component: Rating,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     value: {
-      control: { type: 'number', min: 0, max: 5, step: 0.5 },
+      control: { type: "number", min: 0, max: 5, step: 0.5 },
     },
     readonly: {
-      control: 'boolean',
+      control: "boolean",
     },
   },
 } satisfies Meta<typeof Rating>;
@@ -53,15 +53,15 @@ export const Interactive: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const stars = canvas.getAllByRole('button');
-    
+    const stars = canvas.getAllByRole("button");
+
     // Click the third star
     await userEvent.click(stars[2]);
-    
+
     // Verify the first three stars are filled
-    const filledStars = canvas.getAllByRole('button').slice(0, 3);
-    filledStars.forEach(star => {
-      expect(star.querySelector('svg')).toHaveClass('text-yellow-400');
+    const filledStars = canvas.getAllByRole("button").slice(0, 3);
+    filledStars.forEach((star) => {
+      expect(star.querySelector("svg")).toHaveClass("text-yellow-400");
     });
   },
-}; 
+};

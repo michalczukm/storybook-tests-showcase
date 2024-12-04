@@ -1,6 +1,6 @@
-import React from 'react';
-import { Input } from '../atoms/Input';
-import { Button } from '../atoms/Button';
+import type React from "react";
+import { Button } from "../atoms/Button";
+import { Input } from "../atoms/Input";
 
 interface PriceFilterProps {
   minPrice: string;
@@ -17,7 +17,7 @@ export const PriceFilter: React.FC<PriceFilterProps> = ({
   onMinChange,
   onMaxChange,
   onApply,
-  onReset
+  onReset,
 }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,9 +25,12 @@ export const PriceFilter: React.FC<PriceFilterProps> = ({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-64 p-4 border rounded-lg bg-white">
+    <form
+      onSubmit={handleSubmit}
+      className="w-64 p-4 border rounded-lg bg-white"
+    >
       <h3 className="text-lg font-semibold mb-4">Price Range</h3>
-      
+
       <div className="space-y-4">
         <div>
           <Input
@@ -38,7 +41,7 @@ export const PriceFilter: React.FC<PriceFilterProps> = ({
             label="Minimum"
           />
         </div>
-        
+
         <div>
           <Input
             type="number"
@@ -48,23 +51,16 @@ export const PriceFilter: React.FC<PriceFilterProps> = ({
             label="Maximum"
           />
         </div>
-        
+
         <div className="flex gap-2">
-          <Button
-            type="button"
-            variant="secondary"
-            onClick={onReset}
-          >
+          <Button type="button" variant="secondary" onClick={onReset}>
             Reset
           </Button>
-          <Button
-            type="submit"
-            variant="primary"
-          >
+          <Button type="submit" variant="primary">
             Apply
           </Button>
         </div>
       </div>
     </form>
   );
-}; 
+};

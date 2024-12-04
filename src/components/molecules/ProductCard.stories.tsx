@@ -1,15 +1,15 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { ProductCard } from './ProductCard';
-import { mockProducts } from '../../data/mockData';
-import { userEvent, within, expect, fn } from '@storybook/test';
+import type { Meta, StoryObj } from "@storybook/react";
+import { expect, fn, userEvent, within } from "@storybook/test";
+import { mockProducts } from "../../data/mockData";
+import { ProductCard } from "./ProductCard";
 
 const meta = {
-  title: 'Molecules/ProductCard',
+  title: "Molecules/ProductCard",
   component: ProductCard,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 } satisfies Meta<typeof ProductCard>;
 
 export default meta;
@@ -52,15 +52,15 @@ export const WithRatingInteraction: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const stars = canvas.getAllByRole('button').slice(0, 5); // Get only rating buttons
-    
+    const stars = canvas.getAllByRole("button").slice(0, 5); // Get only rating buttons
+
     // Click the fourth star
     await userEvent.click(stars[3]);
-    
+
     // Verify the first four stars are filled
     const filledStars = stars.slice(0, 4);
-    filledStars.forEach(star => {
-      expect(star.querySelector('svg')).toHaveClass('text-yellow-400');
+    filledStars.forEach((star) => {
+      expect(star.querySelector("svg")).toHaveClass("text-yellow-400");
     });
   },
 };
@@ -72,11 +72,11 @@ export const AddToCartInteraction: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const addToCartButton = canvas.getByText('Add to Cart');
-    
+    const addToCartButton = canvas.getByText("Add to Cart");
+
     await userEvent.hover(addToCartButton);
-    await expect(addToCartButton).toHaveClass('hover:bg-blue-700');
-    
+    await expect(addToCartButton).toHaveClass("hover:bg-blue-700");
+
     await userEvent.click(addToCartButton);
   },
-}; 
+};

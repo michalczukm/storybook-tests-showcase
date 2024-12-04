@@ -1,20 +1,20 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { QuantitySelector } from './QuantitySelector';
-import { userEvent, within, expect, fn } from '@storybook/test';
+import type { Meta, StoryObj } from "@storybook/react";
+import { expect, fn, userEvent, within } from "@storybook/test";
+import { QuantitySelector } from "./QuantitySelector";
 
 const meta = {
-  title: 'Molecules/QuantitySelector',
+  title: "Molecules/QuantitySelector",
   component: QuantitySelector,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     min: {
-      control: 'number',
+      control: "number",
     },
     max: {
-      control: 'number',
+      control: "number",
     },
   },
 } satisfies Meta<typeof QuantitySelector>;
@@ -57,8 +57,8 @@ export const WithInteractions: Story = {
   },
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
-    const [decreaseBtn, increaseBtn] = canvas.getAllByRole('button');
-    const input = canvas.getByRole('spinbutton');
+    const [decreaseBtn, increaseBtn] = canvas.getAllByRole("button");
+    const input = canvas.getByRole("spinbutton");
 
     // Test increase
     await userEvent.click(increaseBtn);
@@ -70,7 +70,7 @@ export const WithInteractions: Story = {
 
     // Test direct input
     await userEvent.clear(input);
-    await userEvent.type(input, '3');
+    await userEvent.type(input, "3");
     await expect(args.onChange).toHaveBeenCalledWith(3);
   },
-}; 
+};
