@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, fn, userEvent, within } from "@storybook/test";
 import { QuantitySelector } from "./QuantitySelector";
+import { useCallback, useState } from 'react';
 
 const meta = {
   title: "Molecules/QuantitySelector",
@@ -21,6 +22,17 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+const TestComponent = (args: Story["args"]) => {
+  const [value, setValue] = useState(1);
+
+  const onChange = useCallback((value: number) => {
+    args.onChange(value);
+    setValue(value);
+  }, [args]);
+
+  return <QuantitySelector {...args} value={value} onChange={onChange} />
+}
 
 export const Default: Story = {
   args: {
@@ -55,6 +67,7 @@ export const WithInteractions: Story = {
     min: 0,
     max: 5,
   },
+  render: TestComponent,
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     const [decreaseBtn, increaseBtn] = canvas.getAllByRole("button");
@@ -65,6 +78,7 @@ export const WithInteractions: Story = {
     await expect(args.onChange).toHaveBeenCalledWith(2);
 
     // Test decrease
+    await userEvent.click(decreaseBtn);
     await userEvent.click(decreaseBtn);
     await expect(args.onChange).toHaveBeenCalledWith(0);
 

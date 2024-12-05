@@ -15,15 +15,17 @@ export const Rating: React.FC<RatingProps> = ({
     <div className="flex gap-1">
       {[1, 2, 3, 4, 5].map((star) => (
         <button
+          type="button"
           key={star}
           onClick={() => !readonly && onChange?.(star)}
           disabled={readonly}
-          className={`${readonly ? "cursor-default" : "cursor-pointer"}`}
+          className={`${readonly ? "cursor-default" : "cursor-pointer"} ${
+            star <= value ? "text-yellow-400" : "text-gray-300"
+          }`}
+          {...(star <= value && { "data-star": true })}
         >
           <svg
-            className={`w-5 h-5 ${
-              star <= value ? "text-yellow-400" : "text-gray-300"
-            }`}
+            className="w-5 h-5"
             fill="currentColor"
             viewBox="0 0 20 20"
           >

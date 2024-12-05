@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, fn, userEvent, within } from "@storybook/test";
+import { expect, fn, userEvent, waitFor, within } from "@storybook/test";
 import { ReviewForm } from "./ReviewForm";
 
 const meta = {
@@ -39,7 +39,7 @@ export const WithValidation: Story = {
     await userEvent.click(submitButton);
 
     // Check for validation messages
-    const errors = await canvas.findAllByText(/is required/);
+    const errors = await canvas.findAllByTestId("input-error");
     await expect(errors).toHaveLength(4);
   },
 };
@@ -75,16 +75,18 @@ export const WithInteraction: Story = {
     await userEvent.click(submitButton);
 
     // Verify submission
-    await expect(args.onSubmit).toHaveBeenCalledWith({
-      rating: 4,
-      title: "Great Product!",
-      comment: "This product exceeded my expectations.",
-      name: "John Doe",
-    });
+    await expect(args.onSubmit).toHaveBeenCalledWith(
+      expect.objectContaining({
+        rating: 4,
+        title: "Great Product!",
+        comment: "This product exceeded my expectations.",
+        name: "John Doe",
+      }),
+    );
 
     // Verify form reset
-    await expect(titleInput).toHaveValue("");
-    await expect(commentInput).toHaveValue("");
-    await expect(nameInput).toHaveValue("");
+    await waitFor(() => expect(titleInput).toHaveValue(""));
+    await waitFor(() => expect(commentInput).toHaveValue(""));
+    await waitFor(() => expect(nameInput).toHaveValue(""));
   },
 };

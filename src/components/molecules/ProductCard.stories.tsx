@@ -58,10 +58,8 @@ export const WithRatingInteraction: Story = {
     await userEvent.click(stars[3]);
 
     // Verify the first four stars are filled
-    const filledStars = stars.slice(0, 4);
-    for (const star of filledStars) {
-      expect(star.querySelector("svg")).toHaveClass("text-yellow-400");
-    }
+    const filledStars = stars.filter((star) => star.getAttribute("data-star"));
+    expect(filledStars).toHaveLength(4);
   },
 };
 

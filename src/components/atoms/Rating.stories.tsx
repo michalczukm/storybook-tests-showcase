@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, within } from "@storybook/test";
 import { Rating } from "./Rating";
+import { useCallback, useState } from 'react';
 
 const meta = {
   title: "Atoms/Rating",
@@ -47,10 +48,22 @@ export const FullScore: Story = {
   },
 };
 
+const TestComponent = (args: Story["args"]) => {
+  const [value, setValue] = useState(args.value);
+
+  const onChange = useCallback((value: number) => {
+    args.onChange?.(value);
+    setValue(value);
+  }, [args]);
+
+  return <Rating {...args} value={value} onChange={onChange} />;
+};
+
 export const Interactive: Story = {
   args: {
     value: 0,
   },
+  render: TestComponent,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const stars = canvas.getAllByRole("button");
@@ -59,9 +72,10 @@ export const Interactive: Story = {
     await userEvent.click(stars[2]);
 
     // Verify the first three stars are filled
-    const filledStars = canvas.getAllByRole("button").slice(0, 3);
-    filledStars.forEach((star) => {
-      expect(star.querySelector("svg")).toHaveClass("text-yellow-400");
-    });
+    const filledStars = canvas
+      .getAllByRole("button")
+      .filter((star) => star.getAttribute("data-star"));
+
+    expect(filledStars).toHaveLength(3);
   },
 };

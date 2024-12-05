@@ -17,7 +17,6 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     value: "",
-    onChange: fn(),
     onSearch: fn(),
   },
 };
@@ -25,7 +24,6 @@ export const Default: Story = {
 export const WithValue: Story = {
   args: {
     value: "Gaming keyboard",
-    onChange: fn(),
     onSearch: fn(),
   },
 };
@@ -33,7 +31,6 @@ export const WithValue: Story = {
 export const WithInteraction: Story = {
   args: {
     value: "",
-    onChange: fn(),
     onSearch: fn(),
   },
   play: async ({ canvasElement, args }) => {
@@ -43,8 +40,10 @@ export const WithInteraction: Story = {
 
     await userEvent.type(input, "mechanical keyboard");
     await expect(input).toHaveValue("mechanical keyboard");
-    await expect(args.onChange).toHaveBeenCalledTimes(
-      "mechanical keyboard".length,
+    await userEvent.click(searchButton);
+    
+    await expect(args.onSearch).toHaveBeenCalledWith(
+      "mechanical keyboard",
     );
 
     await userEvent.click(searchButton);

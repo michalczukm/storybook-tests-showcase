@@ -10,11 +10,13 @@
     "prettify": "biome format --write ./src",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6007",
+    "test-storybook": "test-storybook --url http://localhost:6007",
     "build-storybook": "storybook build"
   },
   "dependencies": {
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "usehooks-ts": "^3.1.0"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
@@ -28,6 +30,7 @@
     "@storybook/react": "^8.4.6",
     "@storybook/react-vite": "^8.4.6",
     "@storybook/test": "^8.4.6",
+    "@storybook/test-runner": "^0.20.1",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.4",

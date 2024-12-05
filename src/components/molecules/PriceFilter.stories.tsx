@@ -52,11 +52,11 @@ export const WithInteractions: Story = {
     const resetButton = canvas.getByText("Reset");
 
     // Test min price input
-    await userEvent.type(minInput, "10");
+    await userEvent.type(minInput, "10", { autoModify: true });
     await expect(args.onMinChange).toHaveBeenCalledWith("10");
 
     // Test max price input
-    await userEvent.type(maxInput, "100");
+    await userEvent.type(maxInput, "100", { autoModify: true });
     await expect(args.onMaxChange).toHaveBeenCalledWith("100");
 
     // Test apply filter

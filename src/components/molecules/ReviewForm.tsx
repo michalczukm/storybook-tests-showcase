@@ -2,7 +2,7 @@ import type React from "react";
 import { Button } from "../atoms/Button";
 import { Input } from "../atoms/Input";
 import { Rating } from "../atoms/Rating";
-import { useState } from 'react';
+import { useCallback, useState } from "react";
 
 interface ReviewFormProps {
   onSubmit: (review: {
@@ -18,51 +18,54 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
   onSubmit,
   initialRating = 0,
 }) => {
-  const [rating, setRating] = useState(initialRating);
-  const [title, setTitle] = useState("");
-  const [comment, setComment] = useState("");
-  const [name, setName] = useState("");
+  const [form, setForm] = useState({
+    rating: initialRating,
+    title: "",
+    comment: "",
+    name: "",
+  });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const validate = () => {
+  const validate = useCallback(() => {
     const newErrors: Record<string, string> = {};
 
-    if (rating === 0) {
+    if (form.rating === 0) {
       newErrors.rating = "Please select a rating";
     }
-    if (!title.trim()) {
+    if (!form.title.trim()) {
       newErrors.title = "Review title is required";
     }
-    if (!comment.trim()) {
+    if (!form.comment.trim()) {
       newErrors.comment = "Review comment is required";
     }
-    if (!name.trim()) {
+    if (!form.name.trim()) {
       newErrors.name = "Name is required";
     }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
-  };
+  }, [form]);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault();
 
-    if (validate()) {
-      onSubmit({
-        rating,
-        title: title.trim(),
-        comment: comment.trim(),
-        name: name.trim(),
-      });
+      if (validate()) {
+        // Reset form
+        onSubmit({
+          rating: form.rating,
+          title: form.title.trim(),
+          comment: form.comment.trim(),
+          name: form.name.trim(),
+        });
 
-      // Reset form
-      setRating(0);
-      setTitle("");
-      setComment("");
-      setName("");
-      setErrors({});
-    }
-  };
+        // Reset form
+        setForm({ rating: 0, title: "", comment: "", name: "" });
+        setErrors({});
+      }
+    },
+    [validate, onSubmit, form],
+  );
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 max-w-lg">
@@ -73,16 +76,21 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
         >
           Rating
         </label>
-        <Rating value={rating} onChange={setRating} />
+        <Rating
+          value={form.rating}
+          onChange={(value) => setForm({ ...form, rating: value })}
+        />
         {errors.rating && (
-          <span className="text-sm text-red-500">{errors.rating}</span>
+          <span data-testid="input-error" className="text-sm text-red-500">
+            {errors.rating}
+          </span>
         )}
       </div>
 
       <Input
         label="Review Title"
-        value={title}
-        onChange={setTitle}
+        value={form.title}
+        onChange={(value) => setForm({ ...form, title: value })}
         error={errors.title}
         placeholder="Summarize your experience"
       />
@@ -96,8 +104,8 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
         </label>
         <textarea
           id="comment"
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
+          value={form.comment}
+          onChange={(e) => setForm({ ...form, comment: e.target.value })}
           placeholder="Share your experience with this product"
           rows={4}
           className={`mt-1 block w-full border rounded-md px-3 py-2 ${
@@ -105,14 +113,16 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
           }`}
         />
         {errors.comment && (
-          <span className="text-sm text-red-500">{errors.comment}</span>
+          <span data-testid="input-error" className="text-sm text-red-500">
+            {errors.comment}
+          </span>
         )}
       </div>
 
       <Input
         label="Your Name"
-        value={name}
-        onChange={setName}
+        value={form.name}
+        onChange={(value) => setForm({ ...form, name: value })}
         error={errors.name}
         placeholder="Enter your name"
       />
@@ -122,4 +132,4 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
       </Button>
     </form>
   );
-}; 
+};

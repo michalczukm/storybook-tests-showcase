@@ -7,7 +7,6 @@ initialize({
     url: "./mockServiceWorker.js",
   },
   onUnhandledRequest: (request, print) => {
-    console.log(request);
     if (!request.url.startsWith("/api")) {
       return;
     }
