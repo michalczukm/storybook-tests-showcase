@@ -2,6 +2,8 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { expect, within } from "@storybook/test";
 import { LivePromotions } from "./LivePromotions";
 import { promotionsHandler } from "../../data/msw";
+import MockDate from "mockdate";
+import { FIXTURES_NOW } from '../../data/mockData';
 
 const meta = {
   component: LivePromotions,
@@ -13,6 +15,9 @@ const meta = {
     msw: {
       handlers: [promotionsHandler()],
     },
+  },
+  beforeEach: () => {
+    MockDate.reset();
   },
 } satisfies Meta<typeof LivePromotions>;
 
@@ -35,6 +40,9 @@ export const Default: Story = {
 export const UpcomingState: Story = {
   args: {
     state: "upcoming",
+  },
+  beforeEach: () => {
+    MockDate.set(FIXTURES_NOW);
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);

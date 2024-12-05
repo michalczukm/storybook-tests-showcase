@@ -1,6 +1,8 @@
 import type { Product, Promotion } from "./types";
 import { addHours } from "date-fns";
 
+export const FIXTURES_NOW = new Date(2024, 11, 4);
+
 export const mockProductsList: Product[] = [
   {
     id: "1",
