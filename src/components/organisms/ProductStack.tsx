@@ -1,6 +1,6 @@
 import type React from "react";
 import { useCallback, useState } from "react";
-import type { Product } from "../../data/mockData";
+import type { Product } from "../../data/types";
 import { PriceFilter } from "../molecules/PriceFilter";
 import { ProductCard } from "../molecules/ProductCard";
 import { SortSelector } from "../molecules/SortSelector";

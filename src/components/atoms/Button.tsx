@@ -3,9 +3,6 @@ import type React from "react";
 type ButtonProps = {
   variant?: "primary" | "secondary" | "danger";
   size?: "sm" | "md" | "lg";
-  //   disabled?: boolean;
-  //   onClick?: () => void;
-  //   children: React.ReactNode;
 } & Pick<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
   "disabled" | "onClick" | "children" | "type"
@@ -17,6 +14,7 @@ export const Button: React.FC<ButtonProps> = ({
   disabled = false,
   onClick,
   children,
+  type = "button",
 }) => {
   const baseClasses = "rounded-md font-semibold transition-colors";
   const variantClasses = {
@@ -32,6 +30,7 @@ export const Button: React.FC<ButtonProps> = ({
 
   return (
     <button
+      type={type}
       className={`${baseClasses} ${variantClasses[variant]} ${
         sizeClasses[size]
       } ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
