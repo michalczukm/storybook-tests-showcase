@@ -9,7 +9,6 @@ export const productsHandler = (
   products: Product[] = mockProductsList,
 ) => {
   return http.get("/api/products", async ({ request }) => {
-    console.log("HERE!")
     if (options.status === 500) {
       return new HttpResponse(null, { status: 500 });
     }

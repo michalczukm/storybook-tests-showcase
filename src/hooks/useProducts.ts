@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import type { Product } from "../data/mockData";
+import type { Product } from "../data/types";
 
 export type SortBy =
   | "price-asc"
