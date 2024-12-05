@@ -30,7 +30,7 @@ export const QuantitySelector: React.FC<QuantitySelectorProps> = ({
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = Number.parseInt(e.target.value, 10);
-    if (!isNaN(newValue) && newValue >= min && newValue <= max) {
+    if (Number.isFinite(newValue) && newValue >= min && newValue <= max) {
       onChange(newValue);
     }
   };

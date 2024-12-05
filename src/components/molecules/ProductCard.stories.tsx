@@ -59,9 +59,9 @@ export const WithRatingInteraction: Story = {
 
     // Verify the first four stars are filled
     const filledStars = stars.slice(0, 4);
-    filledStars.forEach((star) => {
+    for (const star of filledStars) {
       expect(star.querySelector("svg")).toHaveClass("text-yellow-400");
-    });
+    }
   },
 };
 
