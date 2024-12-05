@@ -1,5 +1,5 @@
 import type React from "react";
-import type { Product } from "../../data/mockData";
+import type { Product } from "../../data/types";
 import { Badge } from "../atoms/Badge";
 import { Button } from "../atoms/Button";
 import { Image } from "../atoms/Image";
