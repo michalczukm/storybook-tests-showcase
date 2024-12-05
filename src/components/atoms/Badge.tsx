@@ -6,6 +6,13 @@ interface BadgeProps {
   size?: "sm" | "md";
 }
 
+const VARIANT_TO_TEST_ID = {
+  success: "success",
+  warning: "warning",
+  error: "error",
+  info: "info",
+} as const;
+
 export const Badge: React.FC<BadgeProps> = ({
   variant = "info",
   children,
@@ -27,6 +34,7 @@ export const Badge: React.FC<BadgeProps> = ({
     <span
       className={`inline-flex items-center font-medium rounded-full
         ${variantClasses[variant]} ${sizeClasses[size]}`}
+      data-testid={VARIANT_TO_TEST_ID[variant]}
     >
       {children}
     </span>

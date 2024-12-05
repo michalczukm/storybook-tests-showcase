@@ -40,8 +40,8 @@ describe("ProductCard", () => {
       />,
     );
 
-    const badge = screen.getByText("In Stock");
-    expect(badge).toHaveClass("bg-green-100", "text-green-800");
+    expect(screen.queryByText("In Stock")).toBeInTheDocument();
+    expect(screen.queryByTestId("success")).toBeInTheDocument();
   });
 
   it("shows correct stock status badge for low stock items", () => {
@@ -52,8 +52,8 @@ describe("ProductCard", () => {
       />,
     );
 
-    const badge = screen.getByText("Low Stock");
-    expect(badge).toHaveClass("bg-yellow-100", "text-yellow-800");
+    expect(screen.queryByText("Low Stock")).toBeInTheDocument();
+    expect(screen.queryByTestId("warning")).toBeInTheDocument();
   });
 
   it("shows correct stock status badge for out of stock items", () => {
@@ -64,8 +64,8 @@ describe("ProductCard", () => {
       />,
     );
 
-    const badge = screen.getByText("Out of Stock");
-    expect(badge).toHaveClass("bg-red-100", "text-red-800");
+    expect(screen.queryByText("Out of Stock")).toBeInTheDocument();
+    expect(screen.queryByTestId("error")).toBeInTheDocument();
   });
 
   it("disables add to cart button when out of stock", () => {
