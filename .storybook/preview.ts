@@ -1,5 +1,19 @@
 import "../src/index.css";
 import type { Preview } from "@storybook/react";
+import { initialize, mswLoader } from "msw-storybook-addon";
+
+initialize({
+  serviceWorker: {
+    url: "./mockServiceWorker.js",
+  },
+  onUnhandledRequest: (request, print) => {
+    console.log(request);
+    if (!request.url.startsWith("/api")) {
+      return;
+    }
+    print.warning();
+  },
+});
 
 const preview: Preview = {
   parameters: {
@@ -10,6 +24,7 @@ const preview: Preview = {
       },
     },
   },
+  loaders: [mswLoader],
 };
 
 export default preview;

@@ -1,23 +1,21 @@
-import type React from "react";
-
-type SortOption = {
-  value: string;
+type SortOption<T extends string> = {
+  value: T;
   label: string;
 };
 
-interface SortSelectorProps {
-  value: string;
-  onChange: (value: string) => void;
-  options: SortOption[];
+interface SortSelectorProps<T extends string> {
+  value: T;
+  onChange: (value: T) => void;
+  options: SortOption<T>[];
   label?: string;
 }
 
-export const SortSelector: React.FC<SortSelectorProps> = ({
+export const SortSelector = <T extends string>({
   value,
   onChange,
   options,
   label = "Sort by",
-}) => {
+}: SortSelectorProps<T>) => {
   const selectId = "sort-select";
 
   return (
@@ -28,7 +26,7 @@ export const SortSelector: React.FC<SortSelectorProps> = ({
       <select
         id={selectId}
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => onChange(e.target.value as T)}
         className="border border-gray-300 rounded-md px-3 py-2 pr-8 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
         {options.map((option) => (
