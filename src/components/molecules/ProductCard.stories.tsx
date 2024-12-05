@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, fn, userEvent, within } from "@storybook/test";
-import { mockProducts } from "../../data/mockData";
+import { mockProductsList } from "../../data/mockData";
 import { ProductCard } from "./ProductCard";
 
 const meta = {
@@ -14,7 +14,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const mockProduct = mockProducts[0];
+const mockProduct = mockProductsList[0];
 
 export const Default: Story = {
   args: {

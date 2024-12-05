@@ -83,4 +83,4 @@ export const WithLongContent: Story = {
     ],
     onPromotionExpired: fn(),
   },
-}; 
+};

@@ -1,11 +1,12 @@
 import type { SortBy } from "../hooks/useProducts";
-import { mockProducts } from "./mockData";
-import type { Product } from "./mockData";
+import { mockProductsList, mockPromotionsList } from "./mockData";
 import { http, HttpResponse, delay } from "msw";
+import type { Product } from "./types";
+import { mockPromotions } from "./mockData";
 
 export const productsHandler = (
   options: { delay?: number; status: 200 | 500 | 400 } = { status: 200 },
-  products: Product[] = mockProducts,
+  products: Product[] = mockProductsList,
 ) => {
   return http.get("/api/products", async ({ request }) => {
     console.log("HERE!")
@@ -51,5 +52,32 @@ export const productsHandler = (
     });
 
     return HttpResponse.json(sortedProducts);
+  });
+};
+
+export const promotionsHandler = (
+  options: { delay?: number; status?: number } = {},
+) => {
+  return http.get("/api/promotions", async ({ request }) => {
+    if (options.status === 500) {
+      return new HttpResponse(null, { status: 500 });
+    }
+
+    if (options.delay) {
+      await delay(options.delay);
+    }
+
+    const url = new URL(request.url);
+    const state = url.searchParams.get("state");
+
+    if (state === "ongoing") {
+      return HttpResponse.json(mockPromotions.ongoing);
+    }
+
+    if (state === "upcoming") {
+      return HttpResponse.json(mockPromotions.upcoming);
+    }
+
+    return HttpResponse.json(mockPromotionsList);
   });
 };

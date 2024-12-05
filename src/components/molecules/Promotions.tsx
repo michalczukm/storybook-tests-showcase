@@ -28,10 +28,6 @@ const PromotionCard: React.FC<PromotionCardProps> = ({
     }
   }, [countdown.isExpired, onExpired]);
 
-  //   if (countdown.isExpired) {
-  //     return null;
-  //   }
-
   return (
     <div className="border rounded-lg p-4 bg-white shadow-sm">
       <div className="flex justify-between items-start">

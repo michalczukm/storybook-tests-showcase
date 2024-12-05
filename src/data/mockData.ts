@@ -1,25 +1,7 @@
-export interface Product {
-  id: string;
-  name: string;
-  price: number;
-  description: string;
-  image: string;
-  stock: number;
-  rating: number;
-}
+import type { Product, Promotion } from "./types";
+import { addHours } from "date-fns";
 
-export interface CartItem extends Product {
-  quantity: number;
-}
-
-export interface User {
-  id: string;
-  name: string;
-  email: string;
-  avatar: string;
-}
-
-export const mockProducts: Product[] = [
+export const mockProductsList: Product[] = [
   {
     id: "1",
     name: "Mechanical Keyboard",
@@ -38,12 +20,43 @@ export const mockProducts: Product[] = [
     stock: 15,
     rating: 4.8,
   },
-  // Add more mock products...
+  {
+    id: "3",
+    name: "Wireless Earbuds",
+    price: 59.99,
+    description: "Noise-cancelling wireless earbuds with touch controls",
+    image: "https://placeholder.com/150",
+    stock: 20,
+    rating: 4.2,
+  },
 ];
 
-export const mockUser: User = {
-  id: "u1",
-  name: "John Doe",
-  email: "john@example.com",
-  avatar: "https://placeholder.com/50",
-};
+export const mockPromotions = {
+  ongoing: [
+    {
+      id: "1",
+      title: "Summer Sale",
+      description: "Get amazing discounts on summer collection",
+      discount: 20,
+      endDate: addHours(new Date(), 24),
+    },
+    {
+      id: "2",
+      title: "Flash Sale",
+      description: "Limited time offer on selected items",
+      discount: 30,
+      endDate: addHours(new Date(), 2),
+    },
+  ],
+  upcoming: [
+    {
+      id: "3",
+      title: "Winter Sale",
+      description: "Get amazing discounts on winter collection",
+      discount: 20,
+      endDate: new Date("2024-12-24"),
+    },
+  ],
+} satisfies Record<string, Promotion[]>;
+
+export const mockPromotionsList = Object.values(mockPromotions).flat();

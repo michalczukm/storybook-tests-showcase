@@ -73,10 +73,27 @@ export const useProducts = (
     fetchProducts();
   }, [fetchProducts]);
 
+  if (isLoading) {
+    return {
+      status: "loading",
+      isLoading,
+      products: [],
+      refetch: fetchProducts,
+    };
+  }
+
+  if (error) {
+    return {
+      status: "error",
+      error,
+      refetch: fetchProducts,
+    };
+  }
+
   return {
+    status: "success",
     products,
-    isLoading,
-    error,
+    isLoading: false,
     refetch: fetchProducts,
   };
 };
