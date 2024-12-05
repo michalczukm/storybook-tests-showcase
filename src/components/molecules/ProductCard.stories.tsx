@@ -4,7 +4,6 @@ import { mockProducts } from "../../data/mockData";
 import { ProductCard } from "./ProductCard";
 
 const meta = {
-  title: "Molecules/ProductCard",
   component: ProductCard,
   parameters: {
     layout: "centered",

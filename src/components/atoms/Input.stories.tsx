@@ -3,7 +3,6 @@ import { expect, fn, userEvent, within } from "@storybook/test";
 import { Input } from "./Input";
 
 const meta = {
-  title: "Atoms/Input",
   component: Input,
   parameters: {
     layout: "centered",

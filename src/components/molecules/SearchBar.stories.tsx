@@ -3,7 +3,6 @@ import { expect, fn, userEvent, within } from "@storybook/test";
 import { SearchBar } from "./SearchBar";
 
 const meta = {
-  title: "Molecules/SearchBar",
   component: SearchBar,
   parameters: {
     layout: "centered",

@@ -4,7 +4,6 @@ import { SortSelector } from "./SortSelector";
 import { useCallback, useState } from "react";
 
 const meta = {
-  title: "Molecules/SortSelector",
   component: SortSelector,
   parameters: {
     layout: "centered",

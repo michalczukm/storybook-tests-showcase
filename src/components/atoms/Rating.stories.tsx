@@ -4,7 +4,6 @@ import { Rating } from "./Rating";
 import { useCallback, useState } from 'react';
 
 const meta = {
-  title: "Atoms/Rating",
   component: Rating,
   parameters: {
     layout: "centered",

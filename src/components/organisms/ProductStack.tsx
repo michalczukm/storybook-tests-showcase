@@ -4,7 +4,11 @@ import type { Product } from "../../data/mockData";
 import { PriceFilter } from "../molecules/PriceFilter";
 import { ProductCard } from "../molecules/ProductCard";
 import { SortSelector } from "../molecules/SortSelector";
-import { type SortBy, useProducts } from "../../hooks/useProducts";
+import {
+  type ProductsFilters,
+  type SortBy,
+  useProducts,
+} from "../../hooks/useProducts";
 
 interface ProductStackProps {
   onAddToCart: (product: Product) => void;
@@ -23,23 +27,20 @@ export const ProductStack: React.FC<ProductStackProps> = ({
   onAddToCart,
   onRatingChange,
 }) => {
-  const [minPrice, setMinPrice] = useState("");
-  const [maxPrice, setMaxPrice] = useState("");
-  const [sortBy, setSortBy] = useState<SortBy>("price-asc");
-
-  const { products, isLoading, error, refetch } = useProducts({
-    minPrice,
-    maxPrice,
-    sortBy,
+  const [filters, setFilters] = useState<ProductsFilters>({
+    sortBy: "price-asc",
   });
 
+  const productsResponse = useProducts(filters);
+
   const handlePriceFilterApply = useCallback(() => {
-    refetch();
-  }, [refetch]);
+    productsResponse.refetch();
+  }, [productsResponse]);
 
   const handlePriceFilterReset = useCallback(() => {
-    setMinPrice("");
-    setMaxPrice("");
+    setFilters((filters) => ({
+      sortBy: filters.sortBy,
+    }));
   }, []);
 
   const handleRatingChange = useCallback(
@@ -49,10 +50,10 @@ export const ProductStack: React.FC<ProductStackProps> = ({
     [onRatingChange],
   );
 
-  if (error) {
+  if (productsResponse.status === "error") {
     return (
       <div className="text-center text-red-600">
-        Error loading products: {error.message}
+        Error loading products: {productsResponse.error?.message}
       </div>
     );
   }
@@ -61,23 +62,29 @@ export const ProductStack: React.FC<ProductStackProps> = ({
     <div className="space-y-6">
       <div className="flex justify-start items-start gap-4">
         <PriceFilter
-          minPrice={minPrice}
-          maxPrice={maxPrice}
-          onMinChange={setMinPrice}
-          onMaxChange={setMaxPrice}
+          minPrice={filters.minPrice ?? ""}
+          maxPrice={filters.maxPrice ?? ""}
+          onMinChange={(minPrice) =>
+            setFilters((filters) => ({ ...filters, minPrice }))
+          }
+          onMaxChange={(maxPrice) =>
+            setFilters((filters) => ({ ...filters, maxPrice }))
+          }
           onApply={handlePriceFilterApply}
           onReset={handlePriceFilterReset}
         />
         <SortSelector
-          value={sortBy}
-          onChange={setSortBy}
+          value={filters.sortBy}
+          onChange={(sortBy) =>
+            setFilters((filters) => ({ ...filters, sortBy }))
+          }
           options={sortOptions}
         />
       </div>
 
       <hr />
 
-      {isLoading ? (
+      {productsResponse.status === "loading" ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[...Array(6)].map((_, index) => (
             <div
@@ -89,7 +96,7 @@ export const ProductStack: React.FC<ProductStackProps> = ({
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {products.map((product) => (
+          {productsResponse.products.map((product) => (
             <ProductCard
               key={product.id}
               product={product}
@@ -103,4 +110,4 @@ export const ProductStack: React.FC<ProductStackProps> = ({
       )}
     </div>
   );
-}; 
+};

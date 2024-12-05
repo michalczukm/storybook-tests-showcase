@@ -4,7 +4,6 @@ import { ProductStack } from "./ProductStack";
 import { productsHandler } from "../../data/msw";
 
 const meta = {
-  title: "Organisms/ProductStack",
   component: ProductStack,
   parameters: {
     layout: "padded",

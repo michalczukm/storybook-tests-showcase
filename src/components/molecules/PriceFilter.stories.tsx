@@ -3,7 +3,6 @@ import { expect, fn, userEvent, within } from "@storybook/test";
 import { PriceFilter } from "./PriceFilter";
 
 const meta = {
-  title: "Molecules/PriceFilter",
   component: PriceFilter,
   parameters: {
     layout: "centered",

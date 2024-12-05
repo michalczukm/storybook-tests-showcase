@@ -8,24 +8,36 @@ export type SortBy =
   | "name-desc"
   | "rating-desc";
 
-interface UseProductsProps {
+export interface ProductsFilters {
   minPrice?: string;
   maxPrice?: string;
-  sortBy?: SortBy;
+  sortBy: SortBy;
 }
 
-interface UseProductsReturn {
-  products: Product[];
-  isLoading: boolean;
-  error: Error | null;
+export type ProductsResponse = (
+  | {
+      status: "loading";
+      isLoading: true;
+      products: Product[];
+    }
+  | {
+      status: "success";
+      products: Product[];
+      isLoading: false;
+    }
+  | {
+      status: "error";
+      error: Error | null;
+    }
+) & {
   refetch: () => Promise<void>;
-}
+};
 
-export const useProducts = ({
-  minPrice,
-  maxPrice,
-  sortBy,
-}: UseProductsProps = {}): UseProductsReturn => {
+export const useProducts = (
+  { minPrice, maxPrice, sortBy }: ProductsFilters = {
+    sortBy: "price-asc",
+  },
+): ProductsResponse => {
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);

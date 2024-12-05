@@ -4,7 +4,6 @@ import { QuantitySelector } from "./QuantitySelector";
 import { useCallback, useState } from 'react';
 
 const meta = {
-  title: "Molecules/QuantitySelector",
   component: QuantitySelector,
   parameters: {
     layout: "centered",
